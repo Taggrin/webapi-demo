@@ -21,11 +21,11 @@ namespace WebAPIDemo.Services
             if (username != "admin" || password != "admin")
                 return null;
 
-            var claims = new[]
+            var claims = new List<Claim>()
             {
-                new Claim(ClaimTypes.Name, username),
-                new Claim("scope", scope)
+                new Claim(ClaimTypes.Name, username)
             };
+            claims.AddRange(scope.Split(' ').Select(scope => new Claim("scope", scope)));
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["Auth:Key"]!));
             var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);

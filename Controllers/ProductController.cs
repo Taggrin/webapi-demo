@@ -17,6 +17,7 @@ namespace WebAPIDemo.Controllers
         }
 
         [HttpGet]
+        [Authorize (Policy = "Read")]
         public async Task<IActionResult> GetProducts()
         {
             var products = await productService.GetProducts();
@@ -24,6 +25,7 @@ namespace WebAPIDemo.Controllers
         }
 
         [HttpGet("{id}")]
+        [Authorize(Policy = "Read")]
         public async Task<IActionResult> GetProduct(int id)
         {
             var product = await productService.GetProductByID(id);
@@ -34,6 +36,7 @@ namespace WebAPIDemo.Controllers
         }
 
         [HttpPost]
+        [Authorize(Policy = "Write")]
         public async Task<IActionResult> AddProduct(AddProductRequest request)
         {
             var result = await productService.AddProduct(request);
@@ -44,6 +47,7 @@ namespace WebAPIDemo.Controllers
         }
 
         [HttpPut("{id}")]
+        [Authorize(Policy = "Write")]
         public async Task<IActionResult> UpdateProduct(int id, UpdateProductRequest request)
         {
             var result = await productService.UpdateProduct(id, request);
@@ -54,6 +58,7 @@ namespace WebAPIDemo.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Policy = "Write")]
         public async Task<IActionResult> DeleteProduct(int id)
         {
             var result = await productService.Delete(id);
