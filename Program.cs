@@ -3,6 +3,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
 using WebAPIDemo;
+using WebAPIDemo.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -47,6 +48,8 @@ builder.Services.AddSwaggerGen(options => {
 
     options.OperationFilter<AuthOperationFilter>();
 });
+
+builder.Services.AddTransient<ITokenService, TokenService>();
 
 var app = builder.Build();
 
