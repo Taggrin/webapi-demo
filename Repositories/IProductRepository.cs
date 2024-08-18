@@ -8,6 +8,6 @@ namespace WebAPIDemo.Repositories
         Task<Product?> GetByID(int id);
         Task<Product?> Add(Product product);
         Task<Product?> Update(Product product);
-        Task<bool> Delete(int id);
+        Task<bool> Delete(Product product);
     }
 }

@@ -56,6 +56,7 @@ builder.Services.AddSwaggerGen(options => {
     options.OperationFilter<AuthOperationFilter>();
 });
 
+builder.Services.AddTransient<IProductService, ProductService>();
 builder.Services.AddTransient<ITokenService, TokenService>();
 builder.Services.AddTransient<IProductRepository, ProductRepository>();
 
@@ -65,7 +66,11 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(options =>
+    {
+        options.OAuthClientId("demo");
+        options.OAuthUsePkce();
+    });
 }
 
 using (var scope = app.Services.CreateScope())
